@@ -1,8 +1,8 @@
-package net.romstu.excelparser
+package net.romstu.exceltransformer
 
 import mu.KotlinLogging
-import java.util.*
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import java.util.*
 
 /**
  * Excel reader
@@ -14,7 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 class ExcelReader(
     private val path: String
 ) {
-    private val logger = KotlinLogging.logger(this::class.simpleName!!)
+    private val logger = KotlinLogging.logger(this::class.simpleName ?: "ExcelReader")
 
     /**
      * Read file
@@ -28,22 +28,22 @@ class ExcelReader(
      *      - If sheetNames provided, then only (wrapped) sheets from the file that match names with the ones provided.
      *      - If sheetNames provided but no sheetName matches, an Optional.of() with an empty list.
      */
-    fun readFile(vararg sheetNames: String): Optional<List<SheetHolder>> {
+    fun readFile(vararg sheetNames: String): Optional<List<SheetContentWrapper>> {
         val wb = try {
             XSSFWorkbook(path)
         } catch (e: Exception) {
-            logger.debug("Failed to open excel")
+            logger.warn("Failed to open excel file at $path")
             e.printStackTrace()
             return Optional.empty()
         }
-        val sheets = mutableListOf<SheetHolder>()
+        val sheets = mutableListOf<SheetContentWrapper>()
         wb.sheetIterator().forEach {
             if (sheetNames.isEmpty() || sheetNames.contains(it.sheetName)) {
-                sheets.add(SheetHolder.fromSheet(it))
+                sheets.add(SheetContentWrapper.fromSheet(it))
             }
         }
         wb.close()
-        sheets.forEach { println(it) }
+        logger.debug("Read files: $sheets")
         return Optional.of(sheets)
     }
 }

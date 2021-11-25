@@ -1,9 +1,8 @@
-package net.romstu.excelparser
+package net.romstu.exceltransformer
 
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import java.io.FileOutputStream
 import java.util.*
 
 
@@ -14,16 +13,12 @@ import java.util.*
  * @param sheets
  * @param newFilePath
  */
-fun writeToNewFile(sheets: List<SheetHolder>, newFilePath: String) {
-    val wb = XSSFWorkbook()
+fun writeToNewFile(sheets: List<SheetContentWrapper>, newFilePath: String) {
+    val writer = SheetContentWrapperWriter(XSSFWorkbook())
     for (sheetHolder in sheets) {
-        SheetHolderWriter(
-            fileSheet = wb.createSheet(sheetHolder.sheetName),
-            sheetHolder = sheetHolder
-        ).write()
+        writer.addSheet(sheetHolder)
     }
-    wb.write(FileOutputStream(newFilePath))
-    wb.close()
+    writer.writeToFileAndClose(newFilePath)
 }
 
 /**
