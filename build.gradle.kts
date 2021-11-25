@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.0"
-    `java-library`
+    application
     `maven-publish`
 }
 
@@ -39,6 +39,10 @@ project.afterEvaluate {
     publishing {
         publications {
             val mavenJava by creating(MavenPublication::class) {
+                groupId = "com.github.romcooo"
+                artifactId = "excel-transformer"
+                version = "1.0.0"
+
                 from(components["java"])
             }
         }
