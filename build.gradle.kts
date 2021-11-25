@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.0"
     application
+    `maven-publish`
 }
 
 group = "net.romstu"
@@ -32,4 +33,14 @@ tasks.test {
 
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            val mavenJava by creating(MavenPublication::class) {
+                from(components["java"])
+            }
+        }
+    }
 }

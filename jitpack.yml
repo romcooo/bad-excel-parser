@@ -1,0 +1,3 @@
+install:
+  - ./gradlew :excel-transformer:build :excel-transformer:publishToMavenLocal -x :excel-transformer:test
+  - find . -name "*.aar"
