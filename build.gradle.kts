@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "net.romstu"
-version = "1.0.7-SNAPSHOT"
+version = "1.0.8-SNAPSHOT"
 
 val poi = "5.0.0"
 val kotlinLogging = "2.1.0"
@@ -44,9 +44,9 @@ project.afterEvaluate {
     publishing {
         publications {
             val mavenJava by creating(MavenPublication::class) {
-                groupId = "net.romstu.exceltransformer"
-                artifactId = "excel-transformer"
-                version = "1.0.7"
+                groupId = "net.romstu"
+                artifactId = "exceltransformer"
+                version = "1.0.8"
 
                 from(components["java"])
             }
