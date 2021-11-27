@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.0"
-    application
+    `java-library`
     `maven-publish`
 }
 
 group = "net.romstu"
-version = "1.0-SNAPSHOT"
+version = "1.0.7-SNAPSHOT"
 
 val poi = "5.0.0"
 val kotlinLogging = "2.1.0"
@@ -35,13 +35,18 @@ tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 project.afterEvaluate {
     publishing {
         publications {
             val mavenJava by creating(MavenPublication::class) {
-                groupId = "com.github.romcooo"
+                groupId = "net.romstu.exceltransformer"
                 artifactId = "excel-transformer"
-                version = "1.0.0"
+                version = "1.0.7"
 
                 from(components["java"])
             }
