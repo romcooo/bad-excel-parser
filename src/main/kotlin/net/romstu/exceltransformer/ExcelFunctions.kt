@@ -8,15 +8,15 @@ import java.util.*
 
 /**
  * Write to new file
- * Takes a list of sheets wrapped in SheetHolder-s, and creates a new Excel file containing those sheets.
+ * Takes a list of sheets wrapped in [SheetContentWrapper]-s, and creates a new Excel file containing those sheets.
  *
  * @param sheets
  * @param newFilePath
  */
 fun writeToNewFile(sheets: List<SheetContentWrapper>, newFilePath: String) {
     val writer = SheetContentWrapperWriter(XSSFWorkbook())
-    for (sheetHolder in sheets) {
-        writer.addSheet(sheetHolder)
+    for (sheetWrapper in sheets) {
+        writer.addSheet(sheetWrapper)
     }
     writer.writeToFileAndClose(newFilePath)
 }

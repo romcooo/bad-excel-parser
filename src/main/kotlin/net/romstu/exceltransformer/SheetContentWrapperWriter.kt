@@ -14,7 +14,7 @@ import java.io.FileOutputStream
 class SheetContentWrapperWriter(
     val workbook: Workbook
 ) {
-    private val logger = KotlinLogging.logger(this::class.simpleName ?: "SheetHolderWriter")
+    private val logger = KotlinLogging.logger(this::class.simpleName ?: "SheetContentWrapperWriter")
     private var closed = false
 
     /**
